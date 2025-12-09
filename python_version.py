@@ -3,17 +3,14 @@ import time
 
 files = []
 
-for f in os.listdir("."):
+for f in os.listdir("."):  # to ignore hidden files (they start with .)
     if f.startswith("."):
         continue
     if not os.path.isfile(f):
         continue
 
     stat = os.stat(f)
-
-    # On macOS: st_birthtime gives creation time
-    created = getattr(stat, "st_birthtime", stat.st_mtime)
-
+    created = getattr(stat, "st_birthtime", stat.st_mtime) # st_birthtime gives creation time on mac
     files.append((f, created))
 
 files.sort(key=lambda x: x[1])
